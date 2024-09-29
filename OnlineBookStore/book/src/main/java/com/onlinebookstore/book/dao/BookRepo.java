@@ -8,6 +8,6 @@ import com.onlinebookstore.book.model.BookModel;
 
 public interface BookRepo extends JpaRepository<BookModel, Long> {
 
-	List<BookModel> findByUserId(Long userId);
+//	List<BookModel> findByUserId(Long userId);
 
 }

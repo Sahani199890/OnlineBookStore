@@ -1,12 +1,14 @@
 package com.onlinebookstore.user.service;
 
-import com.onlinebookstore.user.model.UserModel;
+import java.util.Optional;
+
+import com.onlinebookstore.user.model.UserEntity;
 
 public interface UserServiceImp {
 
-	UserModel registerUser(UserModel userDto);
+	UserEntity registerUser(UserEntity userDto);
 
-	String loginUser(UserModel userDto);
+	String loginUser(UserEntity userDto);
 
-	UserModel getUserProfile(Long userId);
+	Optional<UserEntity> getUserProfile(Long userId);
 }

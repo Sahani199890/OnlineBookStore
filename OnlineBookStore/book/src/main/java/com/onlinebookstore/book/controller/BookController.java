@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.onlinebookstore.book.bookpojo.BookPojo;
+import com.onlinebookstore.book.bookpojo.BookPojoReview;
+import com.onlinebookstore.book.bookpojo.ReviewPojo;
+import com.onlinebookstore.book.feignclinet.ReviewInterface;
 import com.onlinebookstore.book.model.BookModel;
 import com.onlinebookstore.book.service.BookService;
 
@@ -18,30 +22,43 @@ import com.onlinebookstore.book.service.BookService;
 @RequestMapping("/books")
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+	@Autowired
+	private BookService bookService;
 
-    @GetMapping
-    public ResponseEntity<List<BookModel>> getAllBooks() {
-        List<BookModel> books = bookService.getAllBooks();
-        return ResponseEntity.ok(books);
-    }
+	@Autowired
+	ReviewInterface reviewInterface;
 
-    @GetMapping("/{bookId}")
-    public ResponseEntity<BookModel> getBookById(@PathVariable Long bookId) {
-    	BookModel book = bookService.getBookById(bookId);
-        return ResponseEntity.ok(book);
-    }
+	@GetMapping("/list-books")
+	public ResponseEntity<List<BookPojo>> getAllBooks() {
+		List<BookPojo> books = bookService.getAllBooks();
+		return ResponseEntity.ok(books);
+	}
 
-    @PostMapping
-    public ResponseEntity<BookModel> addBook(@RequestBody BookModel model) {
-    	BookModel newBook = bookService.addBook(model);
-        return ResponseEntity.ok(newBook);
-    }
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<BookModel>> getBooksByUsers(@PathVariable Long userId){
-    	List<BookModel> booksList=bookService.getBooksByUsers(userId);
-    	return ResponseEntity.ok(booksList);
-    }
+	@GetMapping("/{bookId}")
+	public ResponseEntity<BookPojo> getBookById(@PathVariable Long bookId) {
+		BookPojo book = bookService.getBookById(bookId);
+		return ResponseEntity.ok(book);
+	}
+
+	// Second method for fetching a book with reviews
+	@GetMapping("/book_id_review/{reviewBookId}") 
+	public ResponseEntity<BookPojoReview> getBookAndReview(@PathVariable("reviewBookId") Long bookId) {
+		BookPojoReview book = bookService.getBookByIdWithReview(bookId);
+	
+	
+		return ResponseEntity.ok(book);
+	}
+
+	@PostMapping("/book")
+	public ResponseEntity<BookPojo> addBook(@RequestBody BookPojo model) {
+		BookPojo newBook = bookService.addBook(model);
+
+		System.out.println(" added book " + model);
+		return ResponseEntity.ok(newBook);
+	}
+//    @GetMapping("/user/{userId}")
+//    public ResponseEntity<List<BookPojo>> getBooksByUsers(@PathVariable Long userId){
+//    	List<BookPojo> booksList=bookService.getBooksByUsers(userId);
+//    	return ResponseEntity.ok(booksList);
+//    }
 }
-
