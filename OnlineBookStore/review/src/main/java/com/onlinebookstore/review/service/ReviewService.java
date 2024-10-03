@@ -10,7 +10,9 @@ public interface ReviewService {
 
 	List<ReviewPojo> listReviews();
 
-ReviewPojo reveiwByBookId(Long id);
+
+
+List<ReviewPojo> reviewByBookId(Long id);
 
 
 

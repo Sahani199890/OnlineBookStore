@@ -2,6 +2,7 @@ package com.onlinebookstore.user.service;
 
 import java.util.Optional;
 
+import com.onlinebookstore.user.dto.UserDto;
 import com.onlinebookstore.user.model.UserEntity;
 
 public interface UserServiceImp {
@@ -10,5 +11,5 @@ public interface UserServiceImp {
 
 	String loginUser(UserEntity userDto);
 
-	Optional<UserEntity> getUserProfile(Long userId);
+	UserDto getUserProfile(Long userId);
 }

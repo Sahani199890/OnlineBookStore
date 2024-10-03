@@ -1,5 +1,7 @@
 package com.onlinebookstore.book.bookpojo;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ public class BookPojoReview {
 	
 	
 	private BookPojo bookPojo;
-	private ReviewPojo review;
+	private List<ReviewPojo> review;
 	
 
 }

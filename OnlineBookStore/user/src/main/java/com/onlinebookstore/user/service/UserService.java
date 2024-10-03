@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.onlinebookstore.user.dao.UserRepo;
+import com.onlinebookstore.user.dto.UserDto;
 import com.onlinebookstore.user.helper.JWTService;
 import com.onlinebookstore.user.helper.ManualException;
 import com.onlinebookstore.user.model.BookModel;
@@ -16,13 +17,11 @@ import com.onlinebookstore.user.model.UserEntity;
 
 @Service
 public class UserService implements UserServiceImp {
-	
-	@Autowired
-	private  UserRepo repo;
-	@Autowired
-	private  JWTService jwtService;
 
-	
+	@Autowired
+	private UserRepo repo;
+	@Autowired
+	private JWTService jwtService;
 
 	public UserEntity registerUser(UserEntity model) {
 		Optional<UserEntity> modelOpt = repo.findByEmail(model.getEmail());
@@ -57,10 +56,15 @@ public class UserService implements UserServiceImp {
 	}
 
 	@Override
-	public Optional<UserEntity> getUserProfile(Long userId) {
+	public UserDto getUserProfile(Long userId) {
+
+		UserDto userDto = new UserDto();
+
 		// TODO Auto-generated method stub
-	 Optional<UserEntity> data = repo.findById(userId);
-		return data ;
+		UserEntity data = repo.findById(userId).get();
+		userDto.setEmail(data.getEmail());
+		userDto.setName(data.getName());
+		return userDto;
 	}
 
 	public List<UserEntity> getAllUsers() {
