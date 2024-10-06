@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onlinebookstore.review.pojo.ReviewPojo;
@@ -32,8 +31,10 @@ public class ReviewController {
 	}
 
 	@GetMapping("/review_by_book_id/{bookId}")
-    public ReviewPojo reviewByBookId(@PathVariable("bookId") Long id)   {
-		return reviewService.reveiwByBookId(id);
+	 public List<ReviewPojo> reviewByBookId(@PathVariable("bookId") Long id)     {
+		return reviewService.reviewByBookId(id);
 	}
+
+	
 
 }

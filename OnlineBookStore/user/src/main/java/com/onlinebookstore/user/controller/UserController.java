@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.onlinebookstore.user.dto.UserDto;
 import com.onlinebookstore.user.model.UserEntity;
 import com.onlinebookstore.user.service.UserService;
 
 @RestController
-@RequestMapping("/users")
+//@RequestMapping("/users")
 public class UserController {
 	@Autowired
 	UserService userService;
@@ -36,8 +37,8 @@ public class UserController {
 	}
 
 	@GetMapping("/{userId}")
-	public ResponseEntity<Optional<UserEntity>> getUserProfile(@PathVariable Long userId) {
-		Optional<UserEntity> userProfile = userService.getUserProfile(userId);
+	public ResponseEntity<UserDto> getUserProfile(@PathVariable Long userId) {
+		UserDto userProfile = userService.getUserProfile(userId);
 		return ResponseEntity.ok(userProfile);
 	}
 	
